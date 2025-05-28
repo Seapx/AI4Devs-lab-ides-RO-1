@@ -93,3 +93,61 @@ Para detener el contenedor Docker, ejecuta el siguiente comando:
 ```
 docker-compose down
 ```
+
+## Instrucciones para configurar y ejecutar la aplicación
+
+### Requisitos previos
+- Node.js (v14 o superior)
+- npm (v6 o superior)
+- Docker y Docker Compose (para la base de datos PostgreSQL)
+- Git
+
+### Pasos para la configuración
+
+#### 1. Iniciar la base de datos
+```bash
+docker-compose up -d
+```
+Este comando iniciará una instancia de PostgreSQL según la configuración en el archivo docker-compose.yml.
+
+#### 2. Instalar dependencias
+Desde el directorio raíz, ejecuta:
+```bash
+npm install
+```
+Esto instalará las dependencias tanto para el backend como para el frontend.
+
+#### 3. Configurar el backend
+```bash
+cd backend
+npx prisma migrate dev
+```
+Este comando creará las tablas necesarias en la base de datos PostgreSQL.
+
+#### 4. Iniciar la aplicación
+Desde el directorio raíz, ejecuta:
+```bash
+npm run dev
+```
+Esto iniciará tanto el servidor backend (http://localhost:3010) como el servidor de desarrollo del frontend (http://localhost:3000).
+
+#### 6. Acceder a la aplicación
+Abre tu navegador y navega a:
+```
+http://localhost:3000
+```
+
+### Funcionalidades disponibles
+- Ver candidatos existentes en formato de tabla
+- Añadir nuevos candidatos con la siguiente información:
+  - Nombre y apellido
+  - Dirección de correo electrónico
+  - Número de teléfono (opcional)
+  - Dirección (opcional)
+  - Historial educativo (opcional)
+  - Experiencia laboral (opcional)
+  - Carga de currículum (formato PDF o DOCX)
+
+### Solución de problemas
+- Si encuentras problemas de conexión con la base de datos, verifica que el contenedor de PostgreSQL esté en ejecución: `docker ps`
+- Si el frontend no puede conectarse al backend, asegúrate de que el backend esté funcionando en http://localhost:3010
